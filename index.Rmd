@@ -40,7 +40,10 @@ prim %>%
   DT::datatable(
     colnames = c("Familia", "Especie", "Provincia", "Fecha"),
     rownames = FALSE,
-    options = list(searchHighlight = TRUE)
+    options = list(
+      searchHighlight = TRUE,
+      language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+    ),
   )
 ```
 
