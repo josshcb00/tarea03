@@ -1,6 +1,6 @@
 ---
-title: "tarea"
-author: "Josshua Cordero"
+title: "Tarea 03"
+author: "Josshua Cordero Barboza (B92289)"
 date: "28/6/2021"
 output: html_document
 ---
