@@ -11,9 +11,37 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Cargar bibliotecas
 
-```{r}
-
+```{r carga librerias, message=FALSE, warning=FALSE}
+library(sf)
+library(raster)
+library(dplyr)
+library(spData)
+library(leaflet)
+library(plotly)
+library(DT)
 ```
 
+## Cargar documentos 
+```{r carga doc}
+prim <-
+  st_read(
+    "https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2021i-datos/main/gbif/primates-cr-registros.csv",
+    na.strings = "",
+    quiet = TRUE
+  )
+```
+## Tabla de primates avistados en Costa Rica
+```{r tabla primates}
+prim %>%
+  select(family,
+         species,
+         stateProvince,
+         eventDate) %>%
+  DT::datatable(
+    colnames = c("Familia", "Especie", "Provincia", "Fecha"),
+    rownames = FALSE,
+    options = list(searchHighlight = TRUE)
+  )
+```
 
 
