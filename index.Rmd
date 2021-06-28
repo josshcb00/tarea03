@@ -47,6 +47,7 @@ prim<-
  st_join(cantones["canton"])
 ```
 
+# Parte 1
 
 ## Tabla de primates avistados en Costa Rica
 ```{r tabla primates}
@@ -68,4 +69,18 @@ prim %>%
   )
 ```
 
+# Parte 2
+
+## Gráfico de pastel
+```{r primates pastel, message=FALSE, warning=FALSE}
+Primtot <- data.frame("species"=rownames(prim), prim)
+dataprim <- prim[,c('species', 'year')]
+
+figprim <- plot_ly(dataprim, labels = ~species, values = ~year, type = 'pie')
+figprim <- figprim %>% layout(title = 'Avistamiento de primates por especie (1839-2021)',
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+
+figprim
+```
 
