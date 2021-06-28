@@ -87,10 +87,26 @@ figprim
 # Parte 3
 ## Mapa Leaflet
 
+```{r filtrado especies}
+alouatta_palliata <-
+  prim %>%
+  filter(species == "Alouatta palliata")
+cebus_capucinus <-
+  prim %>%
+  filter(species == "Cebus capucinus")
+ateles_geoffroyi <-
+  prim %>%
+  filter(species == "Ateles geoffroyi")
+saimiri_oerstedii <-
+  prim %>%
+  filter(species == "Saimiri oerstedii")
+```
+
+
 
 ```{r mapa, message=FALSE, warning=FALSE}
 
-prim %>%
+alouatta_palliata %>%
   select(stateProvince,
          canton,
          locality,
@@ -102,20 +118,20 @@ prim %>%
   addCircleMarkers(
     stroke = F,
     radius = 4,
-    fillColor = 'brown',
+    fillColor = 'red',
     fillOpacity = 1,
     popup = paste(
-      prim$stateProvince,
-      prim$canton,
-      prim$locality,
-      prim$eventDate,
+      alouatta_palliata$stateProvince,
+      alouatta_palliata$canton,
+      alouatta_palliata$locality,
+      alouatta_palliata$eventDate,
       sep = '<br/>'
     ),
-    group = "Primates en Costa Rica"
+    group = "alouatta"
   ) %>%
   addLayersControl(
     baseGroups = c("OpenStreetMap", "Stamen Toner Lite", "Imágenes de ESRI"),
-    overlayGroups = c("Primates en Costa Rica")
+    overlayGroups = c("alouatta")
   ) %>%
   addMiniMap(
     tiles = providers$Stamen.OpenStreetMap.Mapnik,
