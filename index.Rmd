@@ -77,10 +77,50 @@ Primtot <- data.frame("species"=rownames(prim), prim)
 dataprim <- prim[,c('species', 'year')]
 
 figprim <- plot_ly(dataprim, labels = ~species, values = ~year, type = 'pie')
-figprim <- figprim %>% layout(title = 'Avistamiento de primates por especie (1839-2021)',
+figprim <- figprim %>% layout(title = 'Avistamiento de primates por especie en Costa Rica (1839-2021).',
          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 
 figprim
+```
+
+# Parte 3
+## Mapa Leaflet
+
+
+```{r mapa, message=FALSE, warning=FALSE}
+
+prim %>%
+  select(stateProvince,
+         canton,
+         locality,
+         eventDate) %>%
+  leaflet() %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group = "OpenStreetMap") %>%
+  addProviderTiles(providers$Stamen.TonerLite, group = "Stamen Toner Lite") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Imágenes de ESRI") %>%
+  addCircleMarkers(
+    stroke = F,
+    radius = 4,
+    fillColor = 'brown',
+    fillOpacity = 1,
+    popup = paste(
+      prim$stateProvince,
+      prim$canton,
+      prim$locality,
+      prim$eventDate,
+      sep = '<br/>'
+    ),
+    group = "Primates en Costa Rica"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap", "Stamen Toner Lite", "Imágenes de ESRI"),
+    overlayGroups = c("Primates en Costa Rica")
+  ) %>%
+  addMiniMap(
+    tiles = providers$Stamen.OpenStreetMap.Mapnik,
+    position = "bottomleft",
+    toggleDisplay = TRUE
+  )
 ```
 
