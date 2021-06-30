@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r carga librerias, message=FALSE, warning=FALSE}
 library(sf)
+library(raster)
 library(dplyr)
 library(leaflet)
 library(plotly)
@@ -38,6 +39,13 @@ cantones <-
     "https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2021i-datos/main/ign/delimitacion-territorial-administrativa/cr_cantones_simp_wgs84.geojson",
     quiet = TRUE
 )
+# Carga de provincias
+provincias <-
+  st_read(
+    "https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2021i-datos/main/ign/delimitacion-territorial-administrativa/cr_provincias_simp_wgs84.geojson",
+    quiet = TRUE
+  )
+
 ```
 
 ## Comando para cruzar datos
@@ -86,6 +94,8 @@ figprim
 
 # Parte 3
 ## Mapa Leaflet
+
+Con este comando se filtra la cantidad de especies por su respectivo nombre.
 
 ```{r filtrado especies}
 alouatta_palliata <-
@@ -244,5 +254,31 @@ saimiri_oerstedii %>%
     position = "bottomleft",
     toggleDisplay = TRUE
   ) 
+```
+
+## Mapa climático Leaflet
+```{r clim, message=FALSE, warning=FALSE}
+# Obtener capa raster de worldclim
+alt <- getData(
+  "worldclim",
+  var = "alt",
+  res = .5,
+  lon = -84,
+  lat = 10
+)
+# Recortar la capa con las provincias de Costa Rica
+altitud_cr <-
+  alt %>%
+  mask(provincias) %>%
+  crop(provincias)
+# Mapa Leaflet
+leaflet() %>%
+  setView(lng = -84.0, lat = 10.0, zoom = 7) %>%
+  addTiles(group = "OpenStreetMap") %>%
+  addRasterImage(altitud_cr, colors = "YlGnBu", group = "Altitud") %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("Altitud")
+  )
 ```
 
