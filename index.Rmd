@@ -102,10 +102,9 @@ saimiri_oerstedii <-
   filter(species == "Saimiri oerstedii")
 ```
 
-
+## Mapa de registros de presencia de Alouatta Palliata
 
 ```{r mapa, message=FALSE, warning=FALSE}
-
 alouatta_palliata %>%
   select(stateProvince,
          canton,
@@ -127,16 +126,123 @@ alouatta_palliata %>%
       alouatta_palliata$eventDate,
       sep = '<br/>'
     ),
-    group = "alouatta"
+    group = "Alouatta Palliata"
   ) %>%
   addLayersControl(
     baseGroups = c("OpenStreetMap", "Stamen Toner Lite", "Imágenes de ESRI"),
-    overlayGroups = c("alouatta")
+    overlayGroups = c("Alouatta Palliata")
   ) %>%
   addMiniMap(
     tiles = providers$Stamen.OpenStreetMap.Mapnik,
     position = "bottomleft",
     toggleDisplay = TRUE
-  )
+  ) 
+```
+
+## Mapa de registros de presencia de Cebus Capucinus
+```{r capuccino, message=FALSE, warning=FALSE}
+cebus_capucinus %>%
+  select(stateProvince,
+         canton,
+         locality,
+         eventDate) %>%
+  leaflet() %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group = "OpenStreetMap") %>%
+  addProviderTiles(providers$Stamen.TonerLite, group = "Stamen Toner Lite") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Imágenes de ESRI") %>%
+  addCircleMarkers(
+    stroke = F,
+    radius = 4,
+    fillColor = 'blue',
+    fillOpacity = 1,
+    popup = paste(
+      cebus_capucinus$stateProvince,
+      cebus_capucinus$canton,
+      cebus_capucinus$locality,
+      cebus_capucinus$eventDate,
+      sep = '<br/>'
+    ),
+    group = "Cebus Capucinus"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap", "Stamen Toner Lite", "Imágenes de ESRI"),
+    overlayGroups = c("Cebus Capucinus")
+  ) %>%
+  addMiniMap(
+    tiles = providers$Stamen.OpenStreetMap.Mapnik,
+    position = "bottomleft",
+    toggleDisplay = TRUE
+  ) 
+```
+## Mapa de registros de presencia de Ateles Geoffroyi
+```{r ateles}
+ateles_geoffroyi %>%
+  select(stateProvince,
+         canton,
+         locality,
+         eventDate) %>%
+  leaflet() %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group = "OpenStreetMap") %>%
+  addProviderTiles(providers$Stamen.TonerLite, group = "Stamen Toner Lite") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Imágenes de ESRI") %>%
+  addCircleMarkers(
+    stroke = F,
+    radius = 4,
+    fillColor = 'lime',
+    fillOpacity = 1,
+    popup = paste(
+      ateles_geoffroyi$stateProvince,
+      ateles_geoffroyi$canton,
+      ateles_geoffroyi$locality,
+      ateles_geoffroyi$eventDate,
+      sep = '<br/>'
+    ),
+    group = "Ateles Geoffroyi"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap", "Stamen Toner Lite", "Imágenes de ESRI"),
+    overlayGroups = c("Ateles Geoffroyi")
+  ) %>%
+  addMiniMap(
+    tiles = providers$Stamen.OpenStreetMap.Mapnik,
+    position = "bottomleft",
+    toggleDisplay = TRUE
+  ) 
+```
+
+## Mapa de registros de presencia de Saimiri Oerstedii
+```{r saimiri}
+saimiri_oerstedii %>%
+  select(stateProvince,
+         canton,
+         locality,
+         eventDate) %>%
+  leaflet() %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group = "OpenStreetMap") %>%
+  addProviderTiles(providers$Stamen.TonerLite, group = "Stamen Toner Lite") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Imágenes de ESRI") %>%
+  addCircleMarkers(
+    stroke = F,
+    radius = 4,
+    fillColor = 'red',
+    fillOpacity = 1,
+    popup = paste(
+      saimiri_oerstedii$stateProvince,
+      saimiri_oerstedii$canton,
+      saimiri_oerstedii$locality,
+      saimiri_oerstedii$eventDate,
+      sep = '<br/>'
+    ),
+    group = "Saimiri Oerstedii"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap", "Stamen Toner Lite", "Imágenes de ESRI"),
+    overlayGroups = c("Saimiri Oerstedii")
+  ) %>%
+  addMiniMap(
+    tiles = providers$Stamen.OpenStreetMap.Mapnik,
+    position = "bottomleft",
+    toggleDisplay = TRUE
+  ) 
 ```
 
