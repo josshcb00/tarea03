@@ -234,7 +234,7 @@ saimiri_oerstedii %>%
   addCircleMarkers(
     stroke = F,
     radius = 4,
-    fillColor = 'red',
+    fillColor = 'yellow',
     fillOpacity = 1,
     popup = paste(
       saimiri_oerstedii$stateProvince,
@@ -275,7 +275,7 @@ altitud_cr <-
 leaflet() %>%
   setView(lng = -84.0, lat = 10.0, zoom = 7) %>%
   addTiles(group = "OpenStreetMap") %>%
-  addRasterImage(altitud_cr, colors = "YlGnBu", group = "Altitud") %>%
+  addRasterImage(altitud_cr, colors = "RdYlBu", group = "Altitud") %>%
   addLayersControl(
     baseGroups = c("OpenStreetMap"),
     overlayGroups = c("Altitud")
